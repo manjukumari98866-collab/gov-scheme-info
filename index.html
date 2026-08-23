@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Scheme Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🏛️ Sarkari Yojana Helper</h1>
+        <p>Aapki sabhi sarkari yojanaon ki live jankari ek jagah</p>
+    </header>
+
+    <div class="container">
+        <!-- Live Announcements Section -->
+        <section class="live-section">
+            <h2>🔴 Live Elaan & Nayi Yojanaayein</h2>
+            <div id="live-news-container" class="news-grid">
+                <!-- Live news cards will load here dynamically -->
+            </div>
+        </section>
+
+        <!-- Search & Filter Section -->
+        <section class="filter-section">
+            <h2>🔍 Yojana Dhoondhein</h2>
+            <input type="text" id="searchInput" placeholder="Yojana ka naam ya category likhein..." onkeyup="filterSchemes()">
+        </section>
+
+        <!-- Schemes List Section -->
+        <section class="schemes-section">
+            <h2>📜 Pramukh Yojanayein</h2>
+            <div id="schemes-container" class="schemes-grid">
+                <!-- Scheme cards will load here dynamically -->
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
