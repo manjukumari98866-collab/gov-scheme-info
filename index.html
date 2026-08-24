@@ -3,51 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarkari Yojana Helper v2</title>
+    <title>Sarkari Yojana Helper v3 Live</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>🏛️ Sarkari Yojana Helper</h1>
-        <p>Aapki sabhi sarkari yojanaon ki live jankari ek jagah</p>
+        <div class="lang-switch-container">
+            <button id="langBtn" onclick="toggleLanguage()">English</button>
+        </div>
+        <h1 id="appTitle">🏛️ Sarkari Yojana Helper</h1>
+        <p id="appSub">Aapki sabhi sarkari yojanaon ki live jankari ek jagah</p>
     </header>
 
-    <!-- 1. Live Breaking News Ticker -->
+    <!-- Real-Time Government Live Updates Ticker -->
     <div class="news-ticker">
-        <span class="ticker-title">⚡ LIVE NEWS:</span>
-        <marquee id="liveNewsTicker">🔴 Nayi Yojana: PM Kusum Solar Scheme 2026 online aavedan shuru! | 🔴 Ayushman Bharat: 5 Lakh tak ka muft ilaj card download karein!</marquee>
+        <span class="ticker-title">⚡ REAL-TIME LIVE:</span>
+        <marquee id="liveNewsTicker">🔴 Loading latest real-time government news & scheme updates...</marquee>
     </div>
 
     <div class="container">
-        <!-- Search & Voice Search -->
+        <!-- Search, Voice & State Filter -->
         <section class="search-section">
-            <h2>🔍 Yojana Dhoondhein</h2>
-            <div class="search-box-wrapper">
-                <input type="text" id="searchInput" placeholder="Yojana ka naam ya keyword likhein (e.g. Kisan, Laptop)...">
-                <button id="voiceBtn" class="mic-btn" onclick="startVoiceSearch()">🎤 Bolen</button>
+            <h2 id="searchTitle">🔍 Yojana Dhoondhein</h2>
+            
+            <div class="filter-controls">
+                <div class="search-box-wrapper">
+                    <input type="text" id="searchInput" placeholder="Yojana ka naam ya keyword (e.g. Kisan, Health, Laptop)...">
+                    <button id="voiceBtn" class="mic-btn" onclick="startVoiceSearch()">🎤 Bolen</button>
+                </div>
+
+                <!-- State Filter -->
+                <select id="stateFilter" onchange="applyFilters()">
+                    <option value="all">Sabhi Rajya (All States)</option>
+                    <option value="Central">Kendra Sarkar (Central Scheme)</option>
+                    <option value="UP">Uttar Pradesh</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="MP">Madhya Pradesh</option>
+                </select>
             </div>
             
             <div class="category-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all')">Sabhi</button>
-                <button class="filter-btn" onclick="filterCategory('Housing')">Awas</button>
-                <button class="filter-btn" onclick="filterCategory('Health')">Swasthya</button>
-                <button class="filter-btn" onclick="filterCategory('Agriculture')">Kisan</button>
-                <button class="filter-btn" onclick="filterCategory('Education')">Shiksha</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">Sabhi</button>
+                <button class="filter-btn" onclick="filterCategory('Housing', this)">Awas</button>
+                <button class="filter-btn" onclick="filterCategory('Health', this)">Swasthya</button>
+                <button class="filter-btn" onclick="filterCategory('Agriculture', this)">Kisan</button>
+                <button class="filter-btn" onclick="filterCategory('Education', this)">Shiksha</button>
+                <button class="filter-btn bookmark-view-btn" onclick="showSavedSchemes(this)">❤️ Saved</button>
             </div>
         </section>
 
         <!-- Schemes Grid -->
         <section class="schemes-section">
-            <h2>📋 Pramukh Yojanaayein</h2>
+            <h2 id="schemesTitle">📋 Pramukh Yojanaayein</h2>
             <div class="scheme-grid" id="schemeContainer"></div>
         </section>
     </div>
 
-    <!-- 2. AI Smart Assistant Widget -->
+    <!-- AI Smart Assistant Widget -->
     <div class="ai-assistant-card">
-        <h3>🤖 Yojana Smart AI Assistant</h3>
-        <p>Apni Umar (Age) aur Profession batayein, AI aapko best yojana sujhaye ga:</p>
+        <h3 id="aiTitle">🤖 Yojana Smart AI Assistant</h3>
+        <p id="aiDesc">Apni Umar (Age) aur Profession batayein, AI aapko best yojana sujhaye ga:</p>
         <div class="ai-inputs">
             <input type="number" id="userAge" placeholder="Umar (e.g. 22)">
             <select id="userRole">
@@ -55,7 +72,7 @@
                 <option value="farmer">Kisan (Farmer)</option>
                 <option value="general">Aam Nagrik</option>
             </select>
-            <button onclick="askAIAssistant()">Yojana Sujhaayein</button>
+            <button onclick="askAIAssistant()" id="aiBtn">Yojana Sujhaayein</button>
         </div>
         <div id="aiResponse" class="ai-response-box"></div>
     </div>
