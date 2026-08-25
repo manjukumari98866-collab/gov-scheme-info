@@ -8,7 +8,10 @@ const services = [
       en: "Student identity card for academic records, scholarships, and digital verification support.",
       hi: "शैक्षणिक रिकॉर्ड, छात्रवृत्ति और डिजिटल सत्यापन सहायता के लिए छात्र पहचान पत्र।"
     },
-    link: "https://www.education.gov.in/"
+    link: "https://www.education.gov.in/",
+    documents: ["Aadhaar card", "School or college ID", "Mobile number"],
+    steps: ["Visit the official portal", "Register with Aadhaar and mobile", "Download the final card"],
+    eligibility: { ageMin: 0, ageMax: 40, category: "student" }
   },
   {
     id: 2,
@@ -19,7 +22,10 @@ const services = [
       en: "Healthcare coverage for senior citizens 70+ with hospitalization and OPD benefits.",
       hi: "70+ वरिष्ठ नागरिकों के लिए अस्पताल में भर्ती और ओपीडी लाभों सहित स्वास्थ्य कवरेज।"
     },
-    link: "https://pmjay.gov.in/"
+    link: "https://pmjay.gov.in/",
+    documents: ["Aadhaar card", "Age proof", "Address proof"],
+    steps: ["Check eligibility on PMJAY", "Upload documents", "Submit enrollment request"],
+    eligibility: { ageMin: 70, category: "senior", incomeMax: 500000 }
   },
   {
     id: 3,
@@ -30,7 +36,10 @@ const services = [
       en: "Registration card for unorganised workers to access welfare programmes and social protection.",
       hi: "असंगठित श्रमिकों के लिए पंजीकरण कार्ड, जो कल्याण कार्यक्रमों और सामाजिक सुरक्षा तक पहुँच देता है।"
     },
-    link: "https://eshram.gov.in/"
+    link: "https://eshram.gov.in/",
+    documents: ["Aadhaar card", "Mobile number", "Bank account details"],
+    steps: ["Open e-Shram portal", "Complete worker registration", "Verify and download card"],
+    eligibility: { ageMin: 16, ageMax: 60 }
   },
   {
     id: 4,
@@ -41,7 +50,10 @@ const services = [
       en: "Digital health ID to access medical records and connect with healthcare providers securely.",
       hi: "डिजिटल स्वास्थ्य आईडी, जिससे चिकित्सा रिकॉर्ड तक सुरक्षित रूप से पहुँच और स्वास्थ्य सेवाओं का उपयोग संभव है।"
     },
-    link: "https://abha.gov.in/"
+    link: "https://abha.gov.in/",
+    documents: ["Aadhaar card", "Phone number", "Profile details"],
+    steps: ["Create ABHA ID", "Verify mobile number", "Link health records"],
+    eligibility: { ageMin: 0, incomeMax: 1000000 }
   },
   {
     id: 5,
@@ -52,7 +64,10 @@ const services = [
       en: "Direct financial support to eligible farmers through seasonal installments and updates.",
       hi: "अर्हताप्राप्त किसानों को मौसम आधारित किश्तों और अपडेट के माध्यम से सीधी वित्तीय सहायता।"
     },
-    link: "https://pmkisan.gov.in/"
+    link: "https://pmkisan.gov.in/",
+    documents: ["Aadhaar card", "Land records", "Bank passbook"],
+    steps: ["Check farmer status", "Complete eKYC", "Receive installment"],
+    eligibility: { ageMin: 18, category: "farmer", incomeMax: 400000 }
   },
   {
     id: 6,
@@ -63,7 +78,10 @@ const services = [
       en: "Subsidised housing assistance for rural and urban families to build or buy homes.",
       hi: "ग्रामीण और शहरी परिवारों के लिए आवास निर्माण या खरीद के लिए सब्सिडी आधारित सहायता।"
     },
-    link: "https://pmaymis.gov.in/"
+    link: "https://pmaymis.gov.in/",
+    documents: ["Income certificate", "Identity proof", "Property documents"],
+    steps: ["Check beneficiary status", "Submit documents", "Receive subsidy after approval"],
+    eligibility: { ageMin: 18, incomeMax: 300000 }
   },
   {
     id: 7,
@@ -74,7 +92,10 @@ const services = [
       en: "Central government vacancy notices, application dates, and exam updates for multiple posts.",
       hi: "केंद्रीय सरकारी रिक्तियों, आवेदन तिथियों और कई पदों के लिए परीक्षा अपडेट।"
     },
-    link: "https://ssc.nic.in/"
+    link: "https://ssc.nic.in/",
+    documents: ["Educational certificates", "Photo and signature", "ID proof"],
+    steps: ["Read the notification", "Apply online", "Download admit card and follow schedule"],
+    eligibility: { ageMin: 18, ageMax: 35, category: "general" }
   },
   {
     id: 8,
@@ -85,7 +106,10 @@ const services = [
       en: "Download the admit card to confirm your exam date, centre, and reporting instructions.",
       hi: "प्रवेश पत्र डाउनलोड करें और अपनी परीक्षा तिथि, केंद्र और रिपोर्टिंग निर्देश देखें।"
     },
-    link: "https://upsc.gov.in/"
+    link: "https://upsc.gov.in/",
+    documents: ["Application ID", "Photo ID", "Registration details"],
+    steps: ["Open UPSC portal", "Download admit card", "Reach exam centre on time"],
+    eligibility: { ageMin: 18, ageMax: 40, category: "general" }
   },
   {
     id: 9,
@@ -96,7 +120,10 @@ const services = [
       en: "A one-stop place to apply for scholarships, examine eligibility, and track application status.",
       hi: "छात्रवृत्ति के लिए आवेदन, पात्रता जांच और आवेदन स्थिति ट्रैक करने का एक ही स्थान।"
     },
-    link: "https://scholarships.gov.in/"
+    link: "https://scholarships.gov.in/",
+    documents: ["Income certificate", "Marksheet", "Bank account"],
+    steps: ["Register at NSP", "Fill scholarship form", "Track approval and disbursement"],
+    eligibility: { ageMin: 0, ageMax: 30, category: "student", incomeMax: 800000 }
   },
   {
     id: 10,
@@ -107,7 +134,10 @@ const services = [
       en: "Check class-wise results, re-evaluation updates, and merit list announcements for students.",
       hi: "कक्षा आधारित परिणाम, पुनर्मूल्यांकन अपडेट और छात्र Merit सूची की घोषणाएँ देखें।"
     },
-    link: "https://cbse.gov.in/"
+    link: "https://cbse.gov.in/",
+    documents: ["Roll number", "School details", "Date of birth"],
+    steps: ["Open board portal", "Enter roll number", "View and download marksheet"],
+    eligibility: { ageMin: 10, ageMax: 25, category: "student" }
   },
   {
     id: 11,
@@ -118,7 +148,10 @@ const services = [
       en: "Search nearby empanelled hospitals for free and subsidised treatment under Ayushman Bharat.",
       hi: "आयुष्मान भारत के तहत मुफ्त और सब्सिडी उपचार के लिए निकटतम पंजीकृत अस्पताल खोजें।"
     },
-    link: "https://pmjay.gov.in/"
+    link: "https://pmjay.gov.in/",
+    documents: ["Aadhaar card", "ABHA ID", "Location details"],
+    steps: ["Use the locator map", "Select nearby hospital", "Confirm treatment option"],
+    eligibility: { ageMin: 0, incomeMax: 500000 }
   },
   {
     id: 12,
@@ -129,7 +162,10 @@ const services = [
       en: "Book doctor consultations and appointment slots online to avoid long queues and delays.",
       hi: "ऑनलाइन डॉक्टर परामर्श और अपॉइंटमेंट स्लॉट बुक करें ताकि लंबी कतारों और देरी से बचा जा सके।"
     },
-    link: "https://nhp.gov.in/"
+    link: "https://nhp.gov.in/",
+    documents: ["Aadhaar or ID", "Mobile number", "Doctor preference"],
+    steps: ["Select hospital and time slot", "Book appointment", "Carry ID at the clinic"],
+    eligibility: { ageMin: 0 }
   }
 ];
 
@@ -163,7 +199,8 @@ const categoryMeta = {
   schemes: { icon: "📜", label: { en: "Schemes", hi: "योजनाएँ" } },
   jobs: { icon: "💼", label: { en: "Govt Jobs", hi: "सरकारी नौकरियाँ" } },
   education: { icon: "🎓", label: { en: "Education", hi: "शिक्षा" } },
-  healthcare: { icon: "🏥", label: { en: "Healthcare", hi: "स्वास्थ्य" } }
+  healthcare: { icon: "🏥", label: { en: "Healthcare", hi: "स्वास्थ्य" } },
+  saved: { icon: "⭐", label: { en: "Saved", hi: "सहेजे गए" } }
 };
 
 const uiText = {
@@ -198,6 +235,7 @@ let currentLanguage = "en";
 let activeCategory = "all";
 let currentSearch = "";
 let recognition;
+let currentEligibilityMatchIds = new Set();
 
 const els = {
   langToggle: document.getElementById("langToggle"),
@@ -210,7 +248,9 @@ const els = {
   noticeBtn: document.getElementById("noticeBtn"),
   noticeModal: document.getElementById("noticeModal"),
   noticeList: document.getElementById("noticeList"),
-  closeModalBtn: document.getElementById("closeModalBtn")
+  closeModalBtn: document.getElementById("closeModalBtn"),
+  eligibilityModal: document.getElementById("eligibilityModal"),
+  eligibilityResults: document.getElementById("eligibilityResults")
 };
 
 function t(key) {
@@ -249,6 +289,47 @@ function updateLanguageUI() {
   renderServices();
 }
 
+function getBookmarks() {
+  try {
+    return JSON.parse(localStorage.getItem("gov-saved-items") || "[]");
+  } catch (error) {
+    return [];
+  }
+}
+
+function isBookmarked(itemId) {
+  return getBookmarks().includes(itemId);
+}
+
+function toggleBookmark(itemId) {
+  const saved = new Set(getBookmarks());
+  if (saved.has(itemId)) {
+    saved.delete(itemId);
+  } else {
+    saved.add(itemId);
+  }
+  localStorage.setItem("gov-saved-items", JSON.stringify([...saved]));
+  renderTabs();
+  renderServices();
+}
+
+function filterVisibleServices() {
+  const savedIds = new Set(getBookmarks());
+
+  return services.filter((item) => {
+    const categoryMatch =
+      activeCategory === "all"
+        ? true
+        : activeCategory === "saved"
+          ? savedIds.has(item.id)
+          : item.category === activeCategory;
+
+    const searchableText = `${item.title[currentLanguage]} ${item.detail[currentLanguage]}`.toLowerCase();
+    const queryMatch = !currentSearch || searchableText.includes(currentSearch.toLowerCase());
+    return categoryMatch && queryMatch;
+  });
+}
+
 function renderTabs() {
   const tabs = Object.entries(categoryMeta)
     .map(([key, meta]) => {
@@ -274,13 +355,7 @@ function renderTabs() {
 }
 
 function renderServices() {
-  const filtered = services.filter((item) => {
-    const categoryMatch = activeCategory === "all" || item.category === activeCategory;
-    const searchableText = `${item.title[currentLanguage]} ${item.detail[currentLanguage]}`.toLowerCase();
-    const queryMatch = !currentSearch || searchableText.includes(currentSearch.toLowerCase());
-    return categoryMatch && queryMatch;
-  });
-
+  const filtered = filterVisibleServices();
   els.resultCount.textContent = `${filtered.length} ${t("results")}`;
 
   if (!filtered.length) {
@@ -296,11 +371,16 @@ function renderServices() {
   els.serviceGrid.innerHTML = filtered
     .map((item) => {
       const category = categoryMeta[item.category];
+      const highlightClass = currentEligibilityMatchIds.has(item.id) ? "eligible-highlight" : "";
+      const bookmarkIcon = isBookmarked(item.id) ? "★" : "☆";
       return `
-        <article class="service-card">
+        <article class="service-card ${highlightClass}" data-id="${item.id}">
           <div class="card-top">
             <span class="category-badge">${category.icon} ${category.label[currentLanguage]}</span>
-            <button class="read-btn" type="button" data-read-id="${item.id}" aria-label="Read service">🔊</button>
+            <div class="card-tools">
+              <button class="bookmark-btn ${isBookmarked(item.id) ? "active" : ""}" type="button" data-bookmark-id="${item.id}" aria-label="Bookmark service">${bookmarkIcon}</button>
+              <button class="read-btn" type="button" data-read-id="${item.id}" aria-label="Read service">🔊</button>
+            </div>
           </div>
 
           <h3>${item.title[currentLanguage]}</h3>
@@ -320,8 +400,16 @@ function renderServices() {
     })
     .join("");
 
+  els.serviceGrid.querySelectorAll(".bookmark-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleBookmark(Number(button.dataset.bookmarkId));
+    });
+  });
+
   els.serviceGrid.querySelectorAll("[data-read-id]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
       const item = services.find((service) => service.id === Number(button.dataset.readId));
       if (item) {
         speakText(`${item.title[currentLanguage]}. ${item.detail[currentLanguage]}`);
@@ -330,7 +418,8 @@ function renderServices() {
   });
 
   els.serviceGrid.querySelectorAll("[data-share]").forEach((button) => {
-    button.addEventListener("click", async () => {
+    button.addEventListener("click", async (event) => {
+      event.stopPropagation();
       const url = button.dataset.share;
       if (navigator.clipboard) {
         try {
@@ -342,6 +431,16 @@ function renderServices() {
         }
       } else {
         window.open(url, "_blank", "noopener");
+      }
+    });
+  });
+
+  els.serviceGrid.querySelectorAll(".service-card").forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("button") || event.target.closest("a")) return;
+      const item = services.find((service) => service.id === Number(card.dataset.id));
+      if (item) {
+        openDetailModal(item);
       }
     });
   });
@@ -411,6 +510,14 @@ function startVoiceSearch() {
 }
 
 function toggleLanguage() {
+  closeNoticeModal();
+  closeDetailModal();
+
+  const eligibilityModal = document.getElementById("eligibilityModal");
+  if (!eligibilityModal.classList.contains("hidden")) {
+    toggleEligibilityModal();
+  }
+
   currentLanguage = currentLanguage === "en" ? "hi" : "en";
   updateLanguageUI();
 }
@@ -425,21 +532,85 @@ function closeNoticeModal() {
   els.noticeModal.setAttribute("aria-hidden", "true");
 }
 
-function readAllVisible() {
+function openDetailModal(item) {
+  const infoContent = document.getElementById("infoContent");
+  const detailTitle = document.getElementById("infoTitle");
+
+  detailTitle.textContent = item.title[currentLanguage];
+  infoContent.innerHTML = `
+    <div class="info-block">
+      <h4>${item.title[currentLanguage]}</h4>
+      <p>${item.detail[currentLanguage]}</p>
+    </div>
+    <div class="info-block">
+      <h4>Required Documents</h4>
+      <ul>
+        ${(item.documents || []).map((doc) => `<li>${doc}</li>`).join("")}
+      </ul>
+    </div>
+    <div class="info-block">
+      <h4>How to Apply</h4>
+      <ul>
+        ${(item.steps || []).map((step) => `<li>${step}</li>`).join("")}
+      </ul>
+      <a class="apply-link" href="${item.link}" target="_blank" rel="noreferrer">Direct Apply</a>
+    </div>
+  `;
+
+  document.getElementById("infoModal").classList.remove("hidden");
+  document.getElementById("infoModal").setAttribute("aria-hidden", "false");
+}
+
+function closeDetailModal() {
+  document.getElementById("infoModal").classList.add("hidden");
+  document.getElementById("infoModal").setAttribute("aria-hidden", "true");
+}
+
+function checkEligibility(event) {
+  event.preventDefault();
+
+  const age = Number(document.getElementById("eligibilityAge").value || 0);
+  const gender = document.getElementById("eligibilityGender").value;
+  const income = Number(document.getElementById("eligibilityIncome").value || 0);
+  const category = document.getElementById("eligibilityCategory").value;
+
   const matches = services.filter((item) => {
-    const categoryMatch = activeCategory === "all" || item.category === activeCategory;
-    const text = `${item.title[currentLanguage]} ${item.detail[currentLanguage]}`.toLowerCase();
-    const queryMatch = !currentSearch || text.includes(currentSearch.toLowerCase());
-    return categoryMatch && queryMatch;
+    const rules = item.eligibility || {};
+    const ageCheck = rules.ageMin === undefined || age >= rules.ageMin;
+    const ageMaxCheck = rules.ageMax === undefined || age <= rules.ageMax;
+    const genderCheck = !rules.gender || rules.gender === "all" || gender === "all" || rules.gender === gender;
+    const incomeCheck = !rules.incomeMax || income <= rules.incomeMax;
+    const categoryCheck = !rules.category || rules.category === "all" || category === "all" || rules.category === category;
+    return ageCheck && ageMaxCheck && genderCheck && incomeCheck && categoryCheck;
   });
 
+  currentEligibilityMatchIds = new Set(matches.map((item) => item.id));
+
   if (!matches.length) {
-    speakText(t("noResultsTitle"));
+    els.eligibilityResults.innerHTML = "<div class=\"eligibility-result-item\"><strong>No matching service found.</strong><span>Try different filters.</span></div>";
+    renderServices();
     return;
   }
 
-  const message = matches.map((item) => `${item.title[currentLanguage]}. ${item.detail[currentLanguage]}`).join(". ");
-  speakText(message);
+  els.eligibilityResults.innerHTML = matches
+    .map((item) => `<div class="eligibility-result-item"><strong>${item.title[currentLanguage]}</strong><span>${item.detail[currentLanguage]}</span></div>`)
+    .join("");
+
+  renderServices();
+}
+
+function toggleEligibilityModal() {
+  const modal = document.getElementById("eligibilityModal");
+  modal.classList.toggle("hidden");
+  modal.setAttribute("aria-hidden", modal.classList.contains("hidden") ? "true" : "false");
+}
+
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -452,14 +623,25 @@ document.addEventListener("DOMContentLoaded", () => {
   els.voiceBtn.addEventListener("click", startVoiceSearch);
   els.noticeBtn.addEventListener("click", openNoticeModal);
   els.closeModalBtn.addEventListener("click", closeNoticeModal);
+  document.getElementById("checkEligibilityBtn").addEventListener("click", toggleEligibilityModal);
+  document.getElementById("closeEligibilityBtn").addEventListener("click", toggleEligibilityModal);
+  document.getElementById("closeInfoBtn").addEventListener("click", closeDetailModal);
+  document.getElementById("eligibilityForm").addEventListener("submit", checkEligibility);
   document.querySelector("[data-close='noticeModal']").addEventListener("click", closeNoticeModal);
+  document.querySelector("[data-close='infoModal']").addEventListener("click", closeDetailModal);
+  document.querySelector("[data-close='eligibilityModal']").addEventListener("click", toggleEligibilityModal);
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeNoticeModal();
+      closeDetailModal();
+      if (!document.getElementById("eligibilityModal").classList.contains("hidden")) {
+        toggleEligibilityModal();
+      }
     }
   });
 
+  registerServiceWorker();
   renderTabs();
   renderNotices();
   renderServices();

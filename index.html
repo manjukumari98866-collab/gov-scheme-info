@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gov Service Hub</title>
+    <meta name="theme-color" content="#0d5bd6" />
+    <title>Gov Service Hub v4</title>
     <meta
       name="description"
       content="Unified Government Services and Live Information Portal"
     />
+    <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -21,7 +23,12 @@
           </div>
         </div>
 
-        <button id="langToggle" class="lang-btn" type="button">हिंदी</button>
+        <div class="header-actions">
+          <button id="checkEligibilityBtn" class="glass-btn" type="button">
+            Check My Eligibility
+          </button>
+          <button id="langToggle" class="lang-btn" type="button">हिंदी</button>
+        </div>
       </div>
 
       <p class="subtitle" data-i18n="subtitle">
@@ -75,6 +82,69 @@
           <button id="closeModalBtn" class="close-btn" type="button" aria-label="Close">×</button>
         </div>
         <ul id="noticeList" class="notice-list"></ul>
+      </div>
+    </aside>
+
+    <aside id="eligibilityModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="eligibilityModal"></div>
+      <div class="modal-panel eligibility-panel" role="dialog" aria-modal="true" aria-labelledby="eligibilityTitle">
+        <div class="modal-head">
+          <h3 id="eligibilityTitle">Check My Eligibility</h3>
+          <button id="closeEligibilityBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+
+        <form id="eligibilityForm" class="eligibility-form">
+          <label>
+            <span>Age</span>
+            <input id="eligibilityAge" type="number" min="0" max="100" value="32" />
+          </label>
+
+          <label>
+            <span>Gender</span>
+            <select id="eligibilityGender">
+              <option value="all">All</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="transgender">Transgender</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Annual Income</span>
+            <input id="eligibilityIncome" type="number" min="0" step="1000" value="300000" />
+          </label>
+
+          <label>
+            <span>Category</span>
+            <select id="eligibilityCategory">
+              <option value="all">All</option>
+              <option value="general">General</option>
+              <option value="obc">OBC</option>
+              <option value="sc">SC</option>
+              <option value="st">ST</option>
+              <option value="farmer">Farmer</option>
+              <option value="student">Student</option>
+              <option value="senior">Senior Citizen</option>
+            </select>
+          </label>
+
+          <button id="eligibilitySubmit" class="primary-btn wide-btn" type="submit">
+            Find Matches
+          </button>
+        </form>
+
+        <div id="eligibilityResults" class="eligibility-results"></div>
+      </div>
+    </aside>
+
+    <aside id="infoModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="infoModal"></div>
+      <div class="modal-panel info-panel" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+        <div class="modal-head">
+          <h3 id="infoTitle">Service Details</h3>
+          <button id="closeInfoBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+        <div id="infoContent" class="info-content"></div>
       </div>
     </aside>
 
