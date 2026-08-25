@@ -1,86 +1,88 @@
 <!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarkari Yojana Helper v3 Live</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <header>
-        <div class="lang-switch-container">
-            <button id="langBtn" onclick="toggleLanguage()">English</button>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gov Service Hub</title>
+    <meta
+      name="description"
+      content="Unified Government Services and Live Information Portal"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="header-row">
+        <div class="brand-wrap">
+          <span class="brand-mark">🏛️</span>
+          <div>
+            <p class="eyebrow" data-i18n="eyebrow">Unified Government Services</p>
+            <h1 data-i18n="appTitle">Gov Service Hub</h1>
+          </div>
         </div>
-        <h1 id="appTitle">🏛️ Sarkari Yojana Helper</h1>
-        <p id="appSub">Aapki sabhi sarkari yojanaon ki live jankari ek jagah</p>
+
+        <button id="langToggle" class="lang-btn" type="button">हिंदी</button>
+      </div>
+
+      <p class="subtitle" data-i18n="subtitle">
+        One place for cards, schemes, jobs, education, and health services.
+      </p>
     </header>
 
-    <!-- Real-Time Government Live Updates Ticker -->
-    <div class="news-ticker">
-        <span class="ticker-title">⚡ REAL-TIME LIVE:</span>
-        <marquee id="liveNewsTicker">🔴 Loading latest real-time government news & scheme updates...</marquee>
+    <div class="ticker-wrap">
+      <span class="ticker-tag">LIVE</span>
+      <marquee id="tickerText" aria-live="polite">
+        Latest public service updates and government notifications.
+      </marquee>
     </div>
 
-    <div class="container">
-        <!-- Search, Voice & State Filter -->
-        <section class="search-section">
-            <h2 id="searchTitle">🔍 Yojana Dhoondhein</h2>
-            
-            <div class="filter-controls">
-                <div class="search-box-wrapper">
-                    <input type="text" id="searchInput" placeholder="Yojana ka naam ya keyword (e.g. Kisan, Health, Laptop)...">
-                    <button id="voiceBtn" class="mic-btn" onclick="startVoiceSearch()">🎤 Bolen</button>
-                </div>
-
-                <!-- State Filter -->
-                <select id="stateFilter" onchange="applyFilters()">
-                    <option value="all">Sabhi Rajya (All States)</option>
-                    <option value="Central">Kendra Sarkar (Central Scheme)</option>
-                    <option value="UP">Uttar Pradesh</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="MP">Madhya Pradesh</option>
-                </select>
-            </div>
-            
-            <div class="category-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">Sabhi</button>
-                <button class="filter-btn" onclick="filterCategory('Housing', this)">Awas</button>
-                <button class="filter-btn" onclick="filterCategory('Health', this)">Swasthya</button>
-                <button class="filter-btn" onclick="filterCategory('Agriculture', this)">Kisan</button>
-                <button class="filter-btn" onclick="filterCategory('Education', this)">Shiksha</button>
-                <button class="filter-btn bookmark-view-btn" onclick="showSavedSchemes(this)">❤️ Saved</button>
-            </div>
-        </section>
-
-        <!-- Schemes Grid -->
-        <section class="schemes-section">
-            <h2 id="schemesTitle">📋 Pramukh Yojanaayein</h2>
-            <div class="scheme-grid" id="schemeContainer"></div>
-        </section>
-    </div>
-
-    <!-- AI Smart Assistant Widget -->
-    <div class="ai-assistant-card">
-        <h3 id="aiTitle">🤖 Yojana Smart AI Assistant</h3>
-        <p id="aiDesc">Apni Umar (Age) aur Profession batayein, AI aapko best yojana sujhaye ga:</p>
-        <div class="ai-inputs">
-            <input type="number" id="userAge" placeholder="Umar (e.g. 22)">
-            <select id="userRole">
-                <option value="student">Student (Chhatra)</option>
-                <option value="farmer">Kisan (Farmer)</option>
-                <option value="general">Aam Nagrik</option>
-            </select>
-            <button onclick="askAIAssistant()" id="aiBtn">Yojana Sujhaayein</button>
+    <main class="container">
+      <section class="panel controls-panel">
+        <div class="search-row">
+          <input
+            id="searchInput"
+            type="text"
+            data-i18n-placeholder="searchPlaceholder"
+            placeholder="Search cards, schemes, jobs, and services"
+          />
+          <button id="voiceBtn" class="primary-btn" type="button" data-i18n="voiceSearch">
+            Voice Search
+          </button>
         </div>
-        <div id="aiResponse" class="ai-response-box"></div>
-    </div>
 
-    <footer>
-        <p>© 2026 Sarkari Yojana Helper | Created by Himanshu 🇮🇳</p>
+        <div id="categoryTabs" class="category-tabs" aria-label="Service categories"></div>
+      </section>
+
+      <section class="panel results-panel">
+        <div class="section-head">
+          <h2 data-i18n="servicesTitle">Popular services</h2>
+          <span id="resultCount" class="result-count">0 results</span>
+        </div>
+
+        <div id="serviceGrid" class="service-grid"></div>
+      </section>
+    </main>
+
+    <button id="noticeBtn" class="floating-btn" type="button" data-i18n="liveUpdates">
+      Live Updates
+    </button>
+
+    <aside id="noticeModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="noticeModal"></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
+        <div class="modal-head">
+          <h3 id="noticeTitle" data-i18n="noticesTitle">Public notices</h3>
+          <button id="closeModalBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+        <ul id="noticeList" class="notice-list"></ul>
+      </div>
+    </aside>
+
+    <footer class="site-footer">
+      <p>© 2026 Gov Service Hub • India</p>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
+
