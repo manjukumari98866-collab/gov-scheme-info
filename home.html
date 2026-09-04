@@ -1,0 +1,964 @@
+<!-- HOME PAGE DASHBOARD FOR LOGGED-IN USERS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Bharat Jan Seva</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #000000;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    .home-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .home-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .home-brand span {
+      font-size: 32px;
+    }
+
+    .home-nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .home-nav button {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 8px 15px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .home-nav button:hover {
+      color: #0d5bd6;
+    }
+
+    .home-nav button.active {
+      color: #0d5bd6;
+      border-bottom: 2px solid #0d5bd6;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #0d5bd6 0%, #ff9f1c 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .user-avatar:hover {
+      transform: scale(1.1);
+    }
+
+    .logout-btn {
+      background: rgba(221, 78, 78, 0.2);
+      border: 1px solid #dd4e4e;
+      color: #ff9999;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: rgba(221, 78, 78, 0.4);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .home-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* ===== WELCOME SECTION ===== */
+    .welcome-section {
+      background: linear-gradient(135deg, rgba(13, 91, 214, 0.2) 0%, rgba(255, 159, 28, 0.2) 100%);
+      border: 1px solid rgba(13, 91, 214, 0.3);
+      border-radius: 15px;
+      padding: 40px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .welcome-section h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #0d5bd6 0%, #ff9f1c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .welcome-section p {
+      color: #aaa;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d5bd6 0%, #0a3d9d 100%);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(13, 91, 214, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ===== PROFILE CARD ===== */
+    .profile-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(13, 91, 214, 0.3);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .profile-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .profile-item {
+      background: rgba(13, 91, 214, 0.15);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(13, 91, 214, 0.2);
+    }
+
+    .profile-item label {
+      display: block;
+      color: #aaa;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .profile-item span {
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0d5bd6;
+    }
+
+    .edit-profile-btn {
+      background: rgba(255, 159, 28, 0.2);
+      border: 1px solid rgba(255, 159, 28, 0.3);
+      color: #ff9f1c;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    .edit-profile-btn:hover {
+      background: rgba(255, 159, 28, 0.3);
+    }
+
+    /* ===== QUICK ACTIONS ===== */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .action-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .action-card:hover {
+      background: rgba(13, 91, 214, 0.2);
+      border-color: rgba(13, 91, 214, 0.5);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(13, 91, 214, 0.3);
+    }
+
+    .action-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .action-card h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .action-card p {
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .action-card button {
+      background: linear-gradient(135deg, #0d5bd6 0%, #0a3d9d 100%);
+      border: none;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .action-card button:hover {
+      opacity: 0.9;
+    }
+
+    /* ===== SAVED SCHEMES ===== */
+    .saved-schemes {
+      margin-bottom: 40px;
+    }
+
+    .saved-schemes h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .schemes-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .scheme-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .scheme-card:hover {
+      background: rgba(13, 91, 214, 0.2);
+      border-color: rgba(13, 91, 214, 0.5);
+    }
+
+    .scheme-badge {
+      display: inline-block;
+      background: rgba(13, 91, 214, 0.3);
+      border: 1px solid #0d5bd6;
+      color: #0d5bd6;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+
+    .scheme-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .scheme-meta {
+      color: #aaa;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .scheme-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .scheme-actions button {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-checklist {
+      background: rgba(29, 155, 96, 0.3);
+      color: #99ff99;
+      border: 1px solid #1d9b60;
+    }
+
+    .btn-checklist:hover {
+      background: rgba(29, 155, 96, 0.5);
+    }
+
+    .btn-remove {
+      background: rgba(221, 78, 78, 0.3);
+      color: #ff9999;
+      border: 1px solid #dd4e4e;
+    }
+
+    .btn-remove:hover {
+      background: rgba(221, 78, 78, 0.5);
+    }
+
+    /* ===== APPLICATIONS ===== */
+    .applications {
+      margin-bottom: 40px;
+    }
+
+    .applications h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .app-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .app-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .app-item::before {
+      content: "●";
+      position: absolute;
+      left: -28px;
+      color: #0d5bd6;
+      font-size: 16px;
+    }
+
+    .app-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .status-pending {
+      background: rgba(255, 159, 28, 0.3);
+      color: #ff9f1c;
+    }
+
+    .status-approved {
+      background: rgba(29, 155, 96, 0.3);
+      color: #99ff99;
+    }
+
+    .status-rejected {
+      background: rgba(221, 78, 78, 0.3);
+      color: #ff9999;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #aaa;
+    }
+
+    .empty-state p {
+      margin-bottom: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    .home-footer {
+      background: rgba(0, 0, 0, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 30px 20px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      margin-top: 40px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .home-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+
+      .home-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .welcome-section {
+        padding: 25px 15px;
+      }
+
+      .welcome-section h2 {
+        font-size: 24px;
+      }
+
+      .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dashboard-section {
+      margin-top: 24px;
+    }
+
+    .dashboard-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .dashboard-form label {
+      display: grid;
+      gap: 7px;
+      color: #b9c3d4;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .dashboard-form input,
+    .dashboard-form select {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 11px 12px;
+      background: #101722;
+      color: #fff;
+    }
+
+    .dashboard-form button {
+      align-self: end;
+      border: 0;
+      min-height: 44px;
+    }
+
+    .setting-toggle {
+      display: flex !important;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 10px !important;
+    }
+
+    .setting-toggle input {
+      width: auto;
+    }
+
+    .form-message {
+      color: #6ee7b7;
+      min-height: 20px;
+      margin: 14px 0 0;
+    }
+
+    .help-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .help-response {
+      margin-top: 18px;
+      border-left: 3px solid #ff9f1c;
+      padding: 12px 14px;
+      background: rgba(255, 159, 28, 0.08);
+      color: #f7f8fb;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="home-header">
+  <div class="home-brand">
+    <span>🏛️</span>
+    <div>Bharat Jan Seva</div>
+  </div>
+
+  <nav class="home-nav">
+    <button class="active" onclick="showSection('dashboard')">📊 Dashboard</button>
+    <button onclick="showSection('schemes')">📋 Schemes</button>
+    <button onclick="showSection('applications')">📝 Applications</button>
+    <button onclick="showSection('checklists')">✅ Checklists</button>
+    <button onclick="showSection('profile')">👤 Profile</button>
+    <button onclick="showSection('settings')">⚙️ Settings</button>
+    <button onclick="showSection('help')">❓ Help</button>
+  </nav>
+
+  <div class="user-menu">
+    <div class="user-avatar" title="User Profile">👤</div>
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+  </div>
+</header>
+
+<div class="home-container">
+
+  <!-- WELCOME SECTION -->
+  <div class="welcome-section">
+    <h2>Welcome Back! 👋</h2>
+    <p id="welcomeMsg">Ready to explore government schemes?</p>
+    <div class="welcome-actions">
+      <button class="btn-primary" onclick="goToSchemes()">🔍 Browse Schemes</button>
+      <button class="btn-primary" onclick="checkEligibility()">✅ Check Eligibility</button>
+      <button class="btn-secondary" onclick="goToApplications()">📝 View Applications</button>
+    </div>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <h3>👤 Your Profile</h3>
+    <div class="profile-grid">
+      <div class="profile-item">
+        <label>Full Name</label>
+        <span id="dispName">John Doe</span>
+      </div>
+      <div class="profile-item">
+        <label>Email</label>
+        <span id="dispEmail">john@example.com</span>
+      </div>
+      <div class="profile-item">
+        <label>Mobile</label>
+        <span id="dispMobile">+919876543210</span>
+      </div>
+      <div class="profile-item">
+        <label>Category</label>
+        <span id="dispCategory">General</span>
+      </div>
+      <div class="profile-item">
+        <label>State</label>
+        <span id="dispState">Delhi</span>
+      </div>
+      <div class="profile-item">
+        <label>Member Since</label>
+        <span id="dispDate">26 Aug 2026</span>
+      </div>
+      <div class="profile-item">
+        <label>Plan</label>
+        <span id="dispTier">Free</span>
+      </div>
+    </div>
+    <button class="edit-profile-btn" onclick="editProfile()">✏️ Edit Profile</button>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <h2 style="margin-bottom: 20px;">🚀 Quick Actions</h2>
+  <div class="quick-actions">
+    <div class="action-card" onclick="goToSchemes()">
+      <div class="action-icon">📋</div>
+      <h4>Browse Schemes</h4>
+      <p>Explore all available government schemes</p>
+      <button>Open</button>
+    </div>
+
+    <div class="action-card" onclick="checkEligibility()">
+      <div class="action-icon">✅</div>
+      <h4>Check Eligibility</h4>
+      <p>See which schemes you're eligible for</p>
+      <button>Check Now</button>
+    </div>
+
+    <div class="action-card" onclick="goToApplications()">
+      <div class="action-icon">📝</div>
+      <h4>My Applications</h4>
+      <p>Track your scheme applications</p>
+      <button>View</button>
+    </div>
+
+    <div class="action-card" onclick="goToChecklists()">
+      <div class="action-icon">✅</div>
+      <h4>Document Checklist</h4>
+      <p>Manage required documents</p>
+      <button>Open</button>
+    </div>
+
+    <div class="action-card" onclick="saveScheme()">
+      <div class="action-icon">💾</div>
+      <h4>Saved Schemes</h4>
+      <p>View your bookmarked schemes</p>
+      <button>View</button>
+    </div>
+
+    <div class="action-card" onclick="contactSupport()">
+      <div class="action-icon">📞</div>
+      <h4>Support</h4>
+      <p>Get help from our support team</p>
+      <button>Contact</button>
+    </div>
+  </div>
+
+  <div class="profile-card" style="border-color: rgba(255, 159, 28, 0.4);">
+    <h3>⭐ Upgrade your plan</h3>
+    <p style="color: #aaa; margin-bottom: 16px;">Unlock document downloads and priority support with Bharat Jan Seva Pro.</p>
+    <button class="btn-primary" onclick="window.location.href='pricing.html'">View Plans</button>
+  </div>
+
+  <!-- SAVED SCHEMES -->
+  <div class="saved-schemes">
+    <h3>💾 Saved Schemes (3)</h3>
+    <div class="schemes-list">
+      <div class="scheme-card">
+        <span class="scheme-badge">📚 Education</span>
+        <div class="scheme-title">Scholarship for Meritorious Students</div>
+        <div class="scheme-meta">Applicable in: Delhi, UP, Maharashtra</div>
+        <div class="scheme-actions">
+          <button class="btn-checklist">📋 Checklist</button>
+          <button class="btn-remove">❌ Remove</button>
+        </div>
+      </div>
+
+      <div class="scheme-card">
+        <span class="scheme-badge">💼 Jobs</span>
+        <div class="scheme-title">PMEGP Business Loan Scheme</div>
+        <div class="scheme-meta">Applicable in: All States</div>
+        <div class="scheme-actions">
+          <button class="btn-checklist">📋 Checklist</button>
+          <button class="btn-remove">❌ Remove</button>
+        </div>
+      </div>
+
+      <div class="scheme-card">
+        <span class="scheme-badge">🏥 Health</span>
+        <div class="scheme-title">Ayushman Bharat Health Insurance</div>
+        <div class="scheme-meta">Applicable in: All India</div>
+        <div class="scheme-actions">
+          <button class="btn-checklist">📋 Checklist</button>
+          <button class="btn-remove">❌ Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION HISTORY -->
+  <div class="applications">
+    <h3 id="historyTitle">📝 Application History</h3>
+    <div id="applicationHistory" class="app-timeline"></div>
+  </div>
+
+  <section id="profileSection" class="profile-card dashboard-section" hidden>
+    <h3>👤 Edit Profile</h3>
+    <form id="profileForm" class="dashboard-form">
+      <label>Full Name<input id="profileEditName" required></label>
+      <label>Email<input id="profileEditEmail" type="email"></label>
+      <label>Mobile<input id="profileEditMobile" type="tel"></label>
+      <label>State<input id="profileEditState" required></label>
+      <label>Category<select id="profileEditCategory"><option>General</option><option>OBC</option><option>SC</option><option>ST</option><option>Farmer</option><option>Student</option><option>Senior Citizen</option></select></label>
+      <label>Age<input id="profileEditAge" type="number" min="0" max="120"></label>
+      <button class="btn-primary" type="submit">Save Profile</button>
+    </form>
+    <p id="profileSaveMessage" class="form-message" role="status"></p>
+  </section>
+
+  <section id="settingsSection" class="profile-card dashboard-section" hidden>
+    <h3>⚙️ Settings</h3>
+    <form id="settingsForm" class="dashboard-form">
+      <label>Language<select id="settingsLanguage"><option value="en">English</option><option value="hi">हिन्दी</option></select></label>
+      <label>City<input id="settingsCity" placeholder="Your city"></label>
+      <label class="setting-toggle"><input id="settingsNotifications" type="checkbox"> Receive service notifications</label>
+      <label class="setting-toggle"><input id="settingsPrivacy" type="checkbox"> Keep my profile private on this device</label>
+      <button class="btn-primary" type="submit">Save Settings</button>
+    </form>
+    <p id="settingsSaveMessage" class="form-message" role="status"></p>
+  </section>
+
+  <section id="helpSection" class="profile-card dashboard-section" hidden>
+    <h3>❓ Help & Support</h3>
+    <p>Get guidance for schemes, applications, documents, and account access.</p>
+    <div class="help-actions">
+      <button class="btn-primary" type="button" onclick="openWhatsApp()">💬 Chat on WhatsApp</button>
+      <button class="btn-secondary" type="button" onclick="askAIHelp()">✨ Ask AI Help</button>
+      <button class="btn-secondary" type="button" onclick="showFirebaseHelp()">🔐 Firebase login help</button>
+    </div>
+    <div id="aiHelpResponse" class="help-response" hidden></div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="home-footer">
+  <p>Bharat Jan Seva © 2026 | All Rights Reserved | <a href="#" style="color: #0d5bd6;">Privacy Policy</a> | <a href="#" style="color: #0d5bd6;">Terms of Service</a></p>
+</footer>
+
+<script>
+  // ===== CHECK LOGIN =====
+  function checkLogin() {
+    const userProfile = JSON.parse(localStorage.getItem('gov-profile') || localStorage.getItem('userProfile') || '{}');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') || userProfile.loggedIn || localStorage.getItem('gov-profile');
+    if (!isLoggedIn) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Display user info
+    document.getElementById('dispName').textContent = userProfile.name || 'Guest User';
+    document.getElementById('dispEmail').textContent = userProfile.email || 'N/A';
+    document.getElementById('dispMobile').textContent = userProfile.mobile || 'N/A';
+    document.getElementById('dispCategory').textContent = userProfile.category || 'General';
+    document.getElementById('dispState').textContent = userProfile.state || 'Delhi';
+    document.getElementById('dispTier').textContent = userProfile.tier || getCurrentTier();
+    document.getElementById('welcomeMsg').textContent = `Welcome back, ${userProfile.name || 'User'}! Ready to explore government schemes?`;
+    renderApplicationHistory();
+  }
+
+  function renderApplicationHistory() {
+    const history = JSON.parse(localStorage.getItem('gov-application-history') || '[]');
+    const container = document.getElementById('applicationHistory');
+    const title = document.getElementById('historyTitle');
+    title.textContent = `📝 Application History (${history.length})`;
+
+    if (!history.length) {
+      container.innerHTML = '<div class="empty-state"><p>No application activity yet.</p><button class="btn-primary" onclick="goToSchemes()">Browse Schemes</button></div>';
+      return;
+    }
+
+    container.innerHTML = history.map((item) => {
+      const date = new Date(item.updatedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+      const statusClass = item.status === 'Documents submitted' ? 'status-approved' : 'status-pending';
+      const icon = item.status === 'Documents submitted' ? '✅' : '⏳';
+      return `<div class="app-item"><strong>${item.title}</strong><p style="color: #aaa; margin-top: 8px; font-size: 14px;">${item.category} · Updated ${date}</p><span class="app-status ${statusClass}">${icon} ${item.status}</span></div>`;
+    }).join('');
+  }
+
+  // ===== NAVIGATION =====
+  function showSection(section) {
+    document.querySelectorAll('.home-nav button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    const button = Array.from(document.querySelectorAll('.home-nav button')).find(btn => btn.getAttribute('onclick')?.includes(`'${section}'`));
+    if (button) button.classList.add('active');
+    const targets = { dashboard: '.welcome-section', schemes: '.saved-schemes', applications: '.applications', checklists: '.saved-schemes', profile: '#profileSection', settings: '#settingsSection', help: '#helpSection' };
+    const target = document.querySelector(targets[section] || '.welcome-section');
+    if (target) {
+      if (target.hidden !== undefined) target.hidden = false;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    if (section === 'profile') loadProfileForm();
+    if (section === 'settings') loadSettingsForm();
+  }
+
+  function goToSchemes() {
+    alert('🔍 Opening Schemes Browser...');
+    window.location.href = 'index.html';
+  }
+
+  function checkEligibility() {
+    alert('✅ Opening Eligibility Checker...');
+    window.location.href = 'index.html#eligibility';
+  }
+
+  function goToApplications() {
+    document.querySelector('.applications').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function goToChecklists() {
+    if (!requirePro('Document checklists')) return;
+    alert('✅ Opening Document Checklists...');
+  }
+
+  function editProfile() {
+    showSection('profile');
+  }
+
+  function saveScheme() {
+    showSection('schemes');
+  }
+
+  function contactSupport() {
+    showSection('help');
+  }
+
+  function loadProfileForm() {
+    const profile = JSON.parse(localStorage.getItem('gov-profile') || '{}');
+    document.getElementById('profileEditName').value = profile.name || '';
+    document.getElementById('profileEditEmail').value = profile.email || '';
+    document.getElementById('profileEditMobile').value = profile.mobile || profile.phone || '';
+    document.getElementById('profileEditState').value = profile.state || '';
+    document.getElementById('profileEditCategory').value = profile.category || 'General';
+    document.getElementById('profileEditAge').value = profile.age || '';
+  }
+
+  function loadSettingsForm() {
+    const settings = JSON.parse(localStorage.getItem('gov-settings') || '{}');
+    document.getElementById('settingsLanguage').value = settings.language || 'en';
+    document.getElementById('settingsCity').value = settings.city || '';
+    document.getElementById('settingsNotifications').checked = settings.notifications !== false;
+    document.getElementById('settingsPrivacy').checked = settings.privateProfile === true;
+  }
+
+  function openWhatsApp() {
+    const profile = JSON.parse(localStorage.getItem('gov-profile') || '{}');
+    const message = encodeURIComponent(`Hello Bharat Jan Seva, I need help with my account or a government scheme. My name is ${profile.name || 'User'}.`);
+    window.open(`https://wa.me/919886605387?text=${message}`, '_blank', 'noopener');
+  }
+
+  function askAIHelp() {
+    const question = prompt('What do you need help with?');
+    if (!question) return;
+    const lower = question.toLowerCase();
+    let answer = 'I can help you find schemes, check eligibility, prepare documents, and track applications. Open Schemes or Checklists from the dashboard.';
+    if (lower.includes('login') || lower.includes('firebase')) answer = 'Use Google login after enabling Google in Firebase Authentication. Mobile OTP also needs Firebase Phone provider and an authorised domain.';
+    else if (lower.includes('document')) answer = 'Open Checklists for the documents required by a scheme. Keep Aadhaar, income proof, bank details, and address proof ready when applicable.';
+    else if (lower.includes('eligib')) answer = 'Open Check Eligibility and enter your age, income, gender, and category. Results are matched against the available scheme catalogue.';
+    document.getElementById('aiHelpResponse').textContent = answer;
+    document.getElementById('aiHelpResponse').hidden = false;
+  }
+
+  function showFirebaseHelp() {
+    document.getElementById('aiHelpResponse').textContent = 'Firebase config is already included for project my-gov-info-e74f5. In Firebase Console, enable Authentication providers, add localhost or your hosted domain, and configure Phone reCAPTCHA for real OTP. Never put private server credentials in this file.';
+    document.getElementById('aiHelpResponse').hidden = false;
+  }
+
+  document.getElementById('profileForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const current = JSON.parse(localStorage.getItem('gov-profile') || '{}');
+    const profile = { ...current, name: profileEditName.value.trim(), email: profileEditEmail.value.trim(), mobile: profileEditMobile.value.trim(), state: profileEditState.value.trim(), category: profileEditCategory.value, age: Number(profileEditAge.value), loggedIn: true };
+    localStorage.setItem('gov-profile', JSON.stringify(profile));
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+    document.getElementById('profileSaveMessage').textContent = 'Profile saved on this device.';
+    checkLogin();
+  });
+
+  document.getElementById('settingsForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    localStorage.setItem('gov-settings', JSON.stringify({ language: settingsLanguage.value, city: settingsCity.value.trim(), notifications: settingsNotifications.checked, privateProfile: settingsPrivacy.checked }));
+    document.getElementById('settingsSaveMessage').textContent = 'Settings saved on this device.';
+  });
+
+  function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userProfile');
+      localStorage.removeItem('gov-profile');
+      const auth = getFirebaseAuth();
+      if (auth) auth.signOut().catch(() => {});
+      window.location.href = 'login.html';
+    }
+  }
+
+  // Initialize on page load
+  window.addEventListener('load', checkLogin);
+  const auth = getFirebaseAuth();
+  if (auth) auth.onAuthStateChanged((user) => {
+    if (!user) return;
+    const profile = JSON.parse(localStorage.getItem('gov-profile') || '{}');
+    localStorage.setItem('gov-profile', JSON.stringify({
+      ...profile,
+      name: user.displayName || profile.name || 'Google User',
+      email: user.email || profile.email || '',
+      uid: user.uid,
+      loggedIn: true,
+      tier: profile.tier || getCurrentTier()
+    }));
+    checkLogin();
+  });
+</script>
+
+</body>
+</html>

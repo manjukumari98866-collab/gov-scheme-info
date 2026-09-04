@@ -1,21 +1,23 @@
 {
-  "name": "Gov Service Hub",
-  "short_name": "GovHub",
+  "name": "Bharat Jan Seva",
+  "short_name": "Jan Seva",
   "start_url": "./index.html",
+  "scope": "./",
+  "id": "gov-service-hub",
   "display": "standalone",
   "background_color": "#edf5ff",
-  "theme_color": "#0d5bd6",
-  "description": "Government services portal for schemes, cards, jobs, education, and healthcare",
+  "theme_color": "#075985",
+  "description": "Bharat Jan Seva portal for schemes, cards, jobs, education, and healthcare",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "./icon.svg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/svg+xml"
     },
     {
-      "src": "./icon-512.png",
+      "src": "./icon.svg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }
   ]
 }

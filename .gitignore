@@ -1,0 +1,48 @@
+# Node modules
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Database
+*.db
+*.sqlite
+mongo-data/
+
+# Build
+dist/
+build/
+
+# Cache
+.cache/
+.eslintcache
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temp files
+tmp/
+temp/
+*.tmp
+
+# Coverage
+coverage/
+.nyc_output/

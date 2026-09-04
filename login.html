@@ -1,0 +1,702 @@
+<!-- GOVERNMENT SCHEME PORTAL - LOGIN & HOME PAGE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharat Jan Seva - Login & Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f7ff;
+      color: #1b2430;
+    }
+
+    /* ===== LOGIN PAGE STYLES ===== */
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 20px;
+    }
+
+    .login-panel {
+      background: #000000;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      max-width: 500px;
+      width: 100%;
+      padding: 50px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: slideUp 0.6s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo-badge {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #0d5bd6 0%, #ff9f1c 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 30px rgba(13, 91, 214, 0.4);
+    }
+
+    .login-header h1 {
+      color: #ffffff;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .login-header p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* ===== AUTH TABS ===== */
+    .auth-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .auth-tab.active {
+      color: #ffffff;
+      border-bottom-color: #0d5bd6;
+    }
+
+    .auth-tab:hover {
+      color: #ffffff;
+    }
+
+    /* ===== FORM STYLES ===== */
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      background: #222222;
+      border-color: #0d5bd6;
+      box-shadow: 0 0 0 3px rgba(13, 91, 214, 0.2);
+    }
+
+    .form-group input::placeholder {
+      color: #666;
+    }
+
+    /* ===== BUTTONS ===== */
+    .auth-button {
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d5bd6 0%, #0a3d9d 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(13, 91, 214, 0.4);
+    }
+
+    .btn-social {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-social:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-google {
+      background: #ffffff;
+      color: #1b2430;
+    }
+
+    .btn-google:hover {
+      background: #f0f0f0;
+    }
+
+    .btn-github {
+      background: #333333;
+      color: #ffffff;
+    }
+
+    .btn-github:hover {
+      background: #444444;
+    }
+
+    /* ===== OTP INPUT ===== */
+    .otp-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .otp-input {
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: white;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .otp-input:focus {
+      outline: none;
+      border-color: #0d5bd6;
+      box-shadow: 0 0 0 3px rgba(13, 91, 214, 0.2);
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 30px 0;
+      color: #666;
+      font-size: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== LINKS & TEXT ===== */
+    .login-links {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .login-links a {
+      color: #0d5bd6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .login-links a:hover {
+      color: #ff9f1c;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .signup-link a {
+      color: #0d5bd6;
+      font-weight: 600;
+    }
+
+    /* ===== TIMER ===== */
+    .otp-timer {
+      text-align: center;
+      color: #ff9f1c;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    /* ===== ERROR MESSAGE ===== */
+    .error-message {
+      background: rgba(221, 78, 78, 0.2);
+      border: 1px solid #dd4e4e;
+      color: #ff9999;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* ===== SUCCESS MESSAGE ===== */
+    .success-message {
+      background: rgba(29, 155, 96, 0.2);
+      border: 1px solid #1d9b60;
+      color: #99ff99;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .login-panel {
+        padding: 40px 25px;
+      }
+
+      .login-header h1 {
+        font-size: 22px;
+      }
+
+      .otp-inputs {
+        gap: 5px;
+      }
+
+      .otp-input {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-panel">
+    <!-- Header -->
+    <div class="login-header">
+      <div class="logo-badge">🏛️</div>
+      <h1>Bharat Jan Seva</h1>
+      <p>One Click to All Government Schemes</p>
+    </div>
+
+    <!-- Error & Success Messages -->
+    <div class="error-message" id="errorMsg"></div>
+    <div class="success-message" id="successMsg"></div>
+
+    <!-- Auth Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="mobile">📱 Mobile</button>
+      <button class="auth-tab" data-tab="otp">🔐 OTP</button>
+      <button class="auth-tab" data-tab="social">🔗 Social</button>
+    </div>
+
+    <!-- MOBILE LOGIN FORM -->
+    <form class="auth-form active" id="mobileForm" data-tab="mobile">
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="tel" id="mobileNumber" placeholder="+91 98765 43210" required>
+      </div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="mobileName" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="mobileEmail" placeholder="your@email.com">
+      </div>
+
+      <button type="button" class="auth-button btn-primary" onclick="sendOTP('mobile')">
+        📤 Send OTP
+      </button>
+
+      <div id="recaptcha-container"></div>
+
+      <div class="login-links">
+        <label style="color: #aaa;">
+          <input type="checkbox" id="termsMobile"> I agree to terms
+        </label>
+      </div>
+    </form>
+
+    <!-- OTP VERIFICATION FORM -->
+    <form class="auth-form" id="otpForm" data-tab="otp">
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="tel" id="otpMobile" placeholder="+91 98765 43210" required>
+      </div>
+
+      <button type="button" class="auth-button btn-primary" onclick="requestOTP()">
+        📤 Send OTP
+      </button>
+
+      <div class="otp-timer" id="otpTimer" style="display: none;">
+        OTP expires in: <span id="timerCount">120</span>s
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <label>Enter OTP (6 digits)</label>
+        <div class="otp-inputs" id="otpInputs">
+          <input class="otp-input" type="text" maxlength="1" oninput="moveToNext(this)">
+          <input class="otp-input" type="text" maxlength="1" oninput="moveToNext(this)">
+          <input class="otp-input" type="text" maxlength="1" oninput="moveToNext(this)">
+          <input class="otp-input" type="text" maxlength="1" oninput="moveToNext(this)">
+          <input class="otp-input" type="text" maxlength="1" oninput="moveToNext(this)">
+          <input class="otp-input" type="text" maxlength="1" oninput="moveToNext(this)">
+        </div>
+      </div>
+
+      <button type="button" class="auth-button btn-primary" onclick="verifyOTP()">
+        ✅ Verify OTP
+      </button>
+
+      <div style="text-align: center; color: #aaa; font-size: 12px;">
+        Didn't receive? <a href="#" onclick="resendOTP()" style="color: #0d5bd6;">Resend OTP</a>
+      </div>
+    </form>
+
+    <!-- SOCIAL LOGIN FORM -->
+    <form class="auth-form" id="socialForm" data-tab="social">
+      <button type="button" class="auth-button btn-google" onclick="loginGoogle()">
+        <span>🔴</span> Continue with Google
+      </button>
+
+      <button type="button" class="auth-button btn-github" onclick="loginGitHub()">
+        <span>⚫</span> Continue with GitHub
+      </button>
+
+      <div class="divider">OR</div>
+
+      <button type="button" class="auth-button btn-social" onclick="showTab('mobile')">
+        <span>📱</span> Use Mobile Number
+      </button>
+
+      <button type="button" class="auth-button btn-social" onclick="showTab('otp')">
+        <span>🔐</span> Use OTP
+      </button>
+    </form>
+
+    <div class="divider"></div>
+
+    <!-- Footer Links -->
+    <div class="login-links" style="margin-top: 20px;">
+      <a href="#" onclick="showForgot()">🔑 Forgot Password?</a>
+      <a href="#" onclick="showHelp()">❓ Need Help?</a>
+    </div>
+
+    <div class="signup-link">
+      Don't have an account? <a href="#" onclick="showSignup()">Sign Up Here</a>
+    </div>
+  </div>
+</div>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+  // ===== TAB SWITCHING =====
+  document.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      showTab(this.dataset.tab);
+    });
+  });
+
+  function showTab(tabName) {
+    // Hide all forms
+    document.querySelectorAll('.auth-form').forEach(form => {
+      form.classList.remove('active');
+    });
+
+    // Remove active from all tabs
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+
+    // Show selected form
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    document.querySelector(`.auth-tab[data-tab="${tabName}"]`).classList.add('active');
+  }
+
+  // ===== MOBILE LOGIN =====
+  let confirmationResult = null;
+  let recaptchaVerifier = null;
+
+  function getPhoneAuthVerifier() {
+    const auth = getFirebaseAuth();
+    if (!auth) throw new Error('Firebase is not configured. Add the project config first.');
+    if (!recaptchaVerifier) {
+      recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { size: 'normal' });
+      recaptchaVerifier.render();
+    }
+    return { auth, verifier: recaptchaVerifier };
+  }
+
+  function sendOTP(type) {
+    const mobile = document.getElementById('mobileNumber').value;
+    const name = document.getElementById('mobileName').value;
+
+    if (!mobile || !name) {
+      showError('Please fill all fields');
+      return;
+    }
+
+    document.getElementById('otpMobile').value = mobile;
+    sendFirebaseOTP(mobile);
+  }
+
+  // ===== OTP FUNCTIONS =====
+  function requestOTP() {
+    const mobile = document.getElementById('otpMobile').value;
+    if (!mobile) {
+      showError('Please enter mobile number');
+      return;
+    }
+    sendFirebaseOTP(mobile);
+  }
+
+  function sendFirebaseOTP(mobile) {
+    try {
+      const { auth, verifier } = getPhoneAuthVerifier();
+      auth.signInWithPhoneNumber(mobile, verifier)
+        .then((result) => {
+          confirmationResult = result;
+          showTab('otp');
+          showSuccess('✅ OTP sent to ' + mobile);
+          startOTPTimer();
+        })
+        .catch((error) => {
+          if (recaptchaVerifier) recaptchaVerifier.clear();
+          recaptchaVerifier = null;
+          showError(error.message || 'Could not send OTP. Check the number and Firebase Phone provider.');
+        });
+    } catch (error) {
+      showError(error.message);
+    }
+  }
+
+  let otpTimer;
+  function startOTPTimer() {
+    let seconds = 120;
+    document.getElementById('otpTimer').style.display = 'block';
+    
+    otpTimer = setInterval(() => {
+      seconds--;
+      document.getElementById('timerCount').textContent = seconds;
+      
+      if (seconds <= 0) {
+        clearInterval(otpTimer);
+        document.getElementById('otpTimer').style.display = 'none';
+      }
+    }, 1000);
+  }
+
+  function moveToNext(element) {
+    if (element.value.length === 1) {
+      const nextElement = element.nextElementSibling;
+      if (nextElement) {
+        nextElement.focus();
+      }
+    }
+  }
+
+  function verifyOTP() {
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const otp = Array.from(otpInputs).map(input => input.value).join('');
+
+    if (otp.length !== 6) {
+      showError('Please enter all 6 digits');
+      return;
+    }
+
+    if (!confirmationResult) {
+      showError('Request an OTP first.');
+      return;
+    }
+    confirmationResult.confirm(otp)
+      .then((result) => {
+        showSuccess('✅ OTP Verified! Redirecting...');
+        setTimeout(() => loginSuccess(result.user), 700);
+      })
+      .catch(() => showError('Invalid or expired OTP. Please request a new code.'));
+  }
+
+  function resendOTP() {
+    // Clear OTP inputs
+    document.querySelectorAll('.otp-input').forEach(input => input.value = '');
+    requestOTP();
+  }
+
+  // ===== SOCIAL LOGIN =====
+  function loginGoogle() {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      showError('Add your Firebase config in firebase-config.js first.');
+      return;
+    }
+    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((result) => loginSuccess(result.user))
+      .catch((error) => showError(error.message || 'Google sign-in failed.'));
+  }
+
+  function loginGitHub() {
+    showSuccess('🔄 Redirecting to GitHub...');
+    setTimeout(() => {
+      loginSuccess();
+    }, 1500);
+  }
+
+  // ===== SUCCESS LOGIN =====
+  function loginSuccess(firebaseUser) {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userProfile', JSON.stringify({
+      name: firebaseUser?.displayName || document.getElementById('mobileName')?.value || 'Gov Service User',
+      email: firebaseUser?.email || document.getElementById('mobileEmail')?.value || '',
+      mobile: document.getElementById('mobileNumber')?.value || '',
+      uid: firebaseUser?.uid || '',
+      tier: getCurrentTier(),
+      loggedIn: true
+    }));
+    localStorage.setItem('gov-profile', JSON.stringify({
+      ...(JSON.parse(localStorage.getItem('userProfile'))),
+      status: 'Verified'
+    }));
+    
+    // Redirect to main portal
+    window.location.href = 'index.html';
+  }
+
+  // ===== HELPER FUNCTIONS =====
+  function showError(message) {
+    const errorDiv = document.getElementById('errorMsg');
+    errorDiv.textContent = '❌ ' + message;
+    errorDiv.classList.add('show');
+    setTimeout(() => {
+      errorDiv.classList.remove('show');
+    }, 3000);
+  }
+
+  function showSuccess(message) {
+    const successDiv = document.getElementById('successMsg');
+    successDiv.textContent = message;
+    successDiv.classList.add('show');
+    setTimeout(() => {
+      successDiv.classList.remove('show');
+    }, 3000);
+  }
+
+  function showForgot() {
+    showError('Password recovery coming soon!');
+  }
+
+  function showHelp() {
+    window.open('https://wa.me/919886605387?text=Hello%20Gov%20Service%20Hub%2C%20I%20need%20login%20help.', '_blank', 'noopener');
+  }
+
+  function showSignup() {
+    showError('Sign up feature coming soon!');
+  }
+
+  // Start with mobile tab
+  window.addEventListener('load', () => {
+    showTab('mobile');
+  });
+</script>
+
+</body>
+</html>

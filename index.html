@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0d5bd6" />
-    <title>Gov Service Hub v4</title>
+    <meta name="theme-color" content="#075985" />
+    <title>Bharat Jan Seva</title>
     <meta
       name="description"
       content="Unified Government Services and Live Information Portal"
@@ -13,21 +13,58 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <header class="topbar">
       <div class="header-row">
         <div class="brand-wrap">
           <span class="brand-mark">🏛️</span>
           <div>
             <p class="eyebrow" data-i18n="eyebrow">Unified Government Services</p>
-            <h1 data-i18n="appTitle">Gov Service Hub</h1>
+            <h1 data-i18n="appTitle">Bharat Jan Seva</h1>
           </div>
         </div>
 
         <div class="header-actions">
-          <button id="checkEligibilityBtn" class="glass-btn" type="button">
-            Check My Eligibility
-          </button>
-          <button id="langToggle" class="lang-btn" type="button">हिंदी</button>
+          <button id="loginBtn" class="glass-btn" type="button">🔐 Login / Register</button>
+          <button id="profileBtn" class="profile-btn icon-circle" type="button" aria-label="Open profile" title="Profile">👤</button>
+          <button id="checkEligibilityBtn" class="glass-btn" type="button">✅ Check My Eligibility</button>
+          <select id="languageSelect" class="header-select language-circle" aria-label="Select language" title="Select language">
+            <option value="en-IN">English</option>
+            <option value="hi-IN">हिन्दी</option>
+            <option value="bn-IN">বাংলা</option>
+            <option value="te-IN">తెలుగు</option>
+            <option value="mr-IN">मराठी</option>
+            <option value="ta-IN">தமிழ்</option>
+            <option value="gu-IN">ગુજરાતી</option>
+            <option value="kn-IN">ಕನ್ನಡ</option>
+            <option value="pa-IN">ਪੰਜਾਬੀ</option>
+            <option value="ml-IN">മലയാളം</option>
+            <option value="or-IN">ଓଡ଼ିଆ</option>
+            <option value="as-IN">অসমীয়া</option>
+            <option value="ur-IN">اردو</option>
+            <option value="sa-IN">संस्कृत</option>
+            <option value="ne-NP">नेपाली</option>
+            <option value="kok-IN">कोंकणी</option>
+            <option value="bho-IN">भोजपुरी</option>
+            <option value="mai-IN">मैथिली</option>
+            <option value="doi-IN">डोगरी</option>
+            <option value="sat-IN">संताली</option>
+            <option value="ks-IN">कश्मीरी</option>
+            <option value="mni-IN">মণিপুরী</option>
+          </select>
+          <select id="citySelect" class="header-select city-select" aria-label="Select city" title="Select city">
+            <option value="All India">All India</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Patna">Patna</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Lucknow">Lucknow</option>
+          </select>
+          <button id="detectLocationBtn" class="glass-btn" type="button">📍 Detect My Location</button>
+          <button id="installAppBtn" class="glass-btn" type="button" hidden>📲 Install App</button>
+          <button id="langToggle" class="lang-btn icon-circle" type="button" aria-label="Change language" title="Change language">हिंदी</button>
         </div>
       </div>
 
@@ -35,6 +72,24 @@
         One place for cards, schemes, jobs, education, and health services.
       </p>
     </header>
+
+    <section id="profileDashboard" class="profile-dashboard hidden" aria-live="polite">
+      <div class="profile-header">
+        <div>
+          <p class="profile-tag">👤 Active Profile</p>
+          <h3 id="profileName">Guest User</h3>
+        </div>
+        <button id="logoutBtn" class="small-btn" type="button">Logout</button>
+      </div>
+      <div class="profile-grid">
+        <div><span>Age</span><strong id="profileAge">—</strong></div>
+        <div><span>State</span><strong id="profileState">—</strong></div>
+        <div><span>Category</span><strong id="profileCategory">—</strong></div>
+        <div><span>Saved Schemes</span><strong id="profileSaved">0</strong></div>
+        <div><span>Application Status</span><strong id="profileStatus">Not Logged In</strong></div>
+          <div><span>Plan</span><strong id="profileTier">Free</strong></div>
+      </div>
+    </section>
 
     <div class="ticker-wrap">
       <span class="ticker-tag">LIVE</span>
@@ -60,6 +115,16 @@
         <div id="categoryTabs" class="category-tabs" aria-label="Service categories"></div>
       </section>
 
+      <div class="ad-slot" data-ad-slot="top" aria-label="Advertisement"></div>
+
+      <section id="localHub" class="panel local-hub">
+        <div class="section-head">
+          <h2>📍 Local City Hub</h2>
+          <span id="cityBadge" class="city-badge">All India</span>
+        </div>
+        <div id="cityContent" class="city-content"></div>
+      </section>
+
       <section class="panel results-panel">
         <div class="section-head">
           <h2 data-i18n="servicesTitle">Popular services</h2>
@@ -68,11 +133,63 @@
 
         <div id="serviceGrid" class="service-grid"></div>
       </section>
+
+      <div class="ad-slot" data-ad-slot="results" aria-label="Advertisement"></div>
     </main>
 
-    <button id="noticeBtn" class="floating-btn" type="button" data-i18n="liveUpdates">
-      Live Updates
-    </button>
+    <button id="noticeBtn" class="floating-btn icon-circle" type="button" data-i18n="liveUpdates" aria-label="Live updates" title="Live updates">🔔</button>
+    <div class="support-dock" aria-label="Support tools">
+      <button id="whatsappBtn" class="support-btn whatsapp-btn icon-circle" type="button" aria-label="WhatsApp support" title="WhatsApp support">💬</button>
+      <button id="aiAssistantBtn" class="support-btn ai-btn icon-circle" type="button" aria-label="AI help" title="AI help">🤖</button>
+    </div>
+
+    <aside id="authModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="authModal"></div>
+      <div class="modal-panel auth-panel" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <div class="modal-head">
+          <h3 id="authTitle">🔐 Login / Register</h3>
+          <button id="closeAuthBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="auth-options">
+          <button class="auth-method primary" type="button" data-auth="otp">📱 Mobile Number (OTP)</button>
+          <button class="auth-method secondary" type="button" data-auth="google">🔵 Continue with Google</button>
+        </div>
+
+        <form id="authForm" class="auth-form">
+          <label>
+            <span>Full Name</span>
+            <input id="authName" type="text" placeholder="Enter your name" required />
+          </label>
+          <label>
+            <span>Age</span>
+            <input id="authAge" type="number" min="18" max="100" value="28" required />
+          </label>
+          <label>
+            <span>State</span>
+            <input id="authState" type="text" placeholder="Enter your state" value="Delhi" required />
+          </label>
+          <label>
+            <span>Category</span>
+            <select id="authCategory">
+              <option value="General">General</option>
+              <option value="OBC">OBC</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+              <option value="Farmer">Farmer</option>
+              <option value="Student">Student</option>
+              <option value="Senior Citizen">Senior Citizen</option>
+            </select>
+          </label>
+          <label>
+            <span>Mobile Number</span>
+            <input id="authPhone" type="tel" placeholder="+91 98XXXXXXXX" value="+91 9876543210" required />
+          </label>
+
+          <button class="primary-btn wide-btn" type="submit">Login / Continue</button>
+        </form>
+      </div>
+    </aside>
 
     <aside id="noticeModal" class="modal hidden" aria-hidden="true">
       <div class="modal-backdrop" data-close="noticeModal"></div>
@@ -148,10 +265,71 @@
       </div>
     </aside>
 
+    <!-- Document Checklist Modal -->
+    <aside id="checklistModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="checklistModal"></div>
+      <div class="modal-panel checklist-panel" role="dialog" aria-modal="true" aria-labelledby="checklistTitle">
+        <div class="modal-head">
+          <h3 id="checklistTitle">📋 Document Checklist</h3>
+          <button id="closeChecklistBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="checklist-content">
+          <div class="checklist-progress">
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <p id="progressText">0% Complete</p>
+          </div>
+
+          <div class="checklist-items" id="checklistItems"></div>
+
+          <div class="checklist-actions">
+            <button id="downloadChecklistBtn" class="secondary-btn" type="button">📥 Download Checklist</button>
+            <button id="submitChecklistBtn" class="primary-btn" type="button" disabled>✅ Submit Documents</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Eligibility Results Modal -->
+    <aside id="eligibilityResultsModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="eligibilityResultsModal"></div>
+      <div class="modal-panel results-panel" role="dialog" aria-modal="true" aria-labelledby="resultsTitle">
+        <div class="modal-head">
+          <h3 id="resultsTitle">✅ Your Eligibility Results</h3>
+          <button id="closeResultsBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="results-content">
+          <div class="results-summary" id="resultsSummary"></div>
+          <div class="results-list" id="resultsList"></div>
+        </div>
+      </div>
+    </aside>
+
+    <aside id="aiAssistantModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="aiAssistantModal"></div>
+      <div class="modal-panel assistant-panel" role="dialog" aria-modal="true" aria-labelledby="aiAssistantTitle">
+        <div class="modal-head">
+          <h3 id="aiAssistantTitle">🤖 Bharat Jan Seva Assistant</h3>
+          <button id="closeAiAssistantBtn" class="close-btn" type="button" aria-label="Close">×</button>
+        </div>
+        <p class="assistant-note">I only answer questions about features and information available in this app.</p>
+        <div id="assistantMessages" class="assistant-messages" aria-live="polite"></div>
+        <form id="assistantForm" class="assistant-form">
+          <input id="assistantInput" type="text" placeholder="Ask about search, schemes, eligibility, bookmarks, or login" autocomplete="off" required />
+          <button class="primary-btn" type="submit">Send</button>
+        </form>
+      </div>
+    </aside>
+
     <footer class="site-footer">
-      <p>© 2026 Gov Service Hub • India</p>
+      <p>© 2026 Bharat Jan Seva • India</p>
     </footer>
 
+    <script src="ad-manager.js"></script>
+    <script src="api-client.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

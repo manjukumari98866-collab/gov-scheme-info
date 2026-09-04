@@ -1,5 +1,9 @@
-const CACHE_NAME = 'gov-service-hub-v4';
-const ASSETS = ['./', './index.html', './style.css', './script.js'];
+const CACHE_NAME = 'bharat-jan-seva-v1';
+const API_CACHE_NAME = 'bharat-jan-seva-api-v1';
+const ASSETS = [
+  './', './index.html', './home.html', './login.html', './pricing.html',
+  './style.css', './script.js', './ad-manager.js', './firebase-config.js', './manifest.json', './icon.svg'
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -20,14 +24,30 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+  const requestUrl = new URL(event.request.url);
+  const isApiRequest = requestUrl.pathname.includes('/api/');
+
+  if (isApiRequest) {
+    event.respondWith(
+      fetch(event.request).then((response) => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(API_CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        }
         return response;
-      }).catch(() => cached);
-    })
+      }).catch(() => caches.match(event.request).then((cached) => cached || new Response(
+        JSON.stringify({ success: false, offline: true, data: [] }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+      return response;
+    }))
   );
 });
