@@ -1394,3 +1394,42 @@ document.addEventListener("DOMContentLoaded", () => {
   syncServicesFromBackend();
   window.addEventListener("online", syncServicesFromBackend);
 });
+// --- Added New Popular Services Feed ---
+const extraServicesData = [
+    {
+        id: 101,
+        title: "National Scholarship Portal (NSP)",
+        category: "Education",
+        description: "One-stop portal for various scholarship schemes for school and college students.",
+        tag: "Trending",
+        location: "Pan India",
+        action: "Apply Online"
+    },
+    {
+        id: 102,
+        title: "Pradhan Mantri Mudra Yojana (PMMY)",
+        category: "Financial Schemes",
+        description: "Collateral-free loans up to 10 Lakhs for micro and small enterprise units.",
+        tag: "Popular",
+        location: "Pan India",
+        action: "Check Eligibility"
+    },
+    {
+        id: 103,
+        title: "PM Kaushal Vikas Yojana (PMKVY)",
+        category: "Education",
+        description: "Free industry-relevant skill training programs and certification for Indian youth.",
+        tag: "New Batch",
+        location: "Pan India",
+        action: "Register Now"
+    },
+    {
+        id: 104,
+        title: "National Career Service (NCS) Portal",
+        category: "Govt Jobs",
+        description: "Find government and private sector job opportunities across various states and sectors.",
+        tag: "Active Jobs",
+        location: "Pan India",
+        action: "Browse Jobs"
+    }
+];
