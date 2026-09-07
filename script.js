@@ -1637,3 +1637,78 @@ const fullAppServicesList = [
         action: "Check Benefit"
     }
 ];
+// --- Complete Dynamic Services Hub Feed ---
+const dynamicHubServices = [
+    {
+        id: 301,
+        title: "National Scholarship Portal (NSP) 2026",
+        category: "Education",
+        description: "Direct application platform for central, state, and UGC-backed student scholarships.",
+        tag: "Trending",
+        location: "Pan India",
+        action: "Apply Online"
+    },
+    {
+        id: 302,
+        title: "Ayushman Vay Vandana Card 70+",
+        category: "Govt Cards",
+        description: "Free healthcare coverage up to 5 Lakhs for senior citizens aged 70 and above.",
+        tag: "Updated",
+        location: "Pan India",
+        action: "Apply Now"
+    },
+    {
+        id: 303,
+        title: "PM Surya Ghar Muft Bijli Yojana",
+        category: "Financial Schemes",
+        description: "Rooftop solar household installation scheme with direct government subsidy support.",
+        tag: "Live",
+        location: "Pan India",
+        action: "Check Subsidy"
+    },
+    {
+        id: 304,
+        title: "Ayushman Hospital & Empanelled Center Locator",
+        category: "Healthcare",
+        description: "Find nearby hospitals for cash-free medical treatment under national health protection.",
+        tag: "Verified",
+        location: "Pan India",
+        action: "Find Hospital"
+    },
+    {
+        id: 305,
+        title: "National Career Service (NCS) Job Portal",
+        category: "Govt Jobs",
+        description: "Centralized employment exchange connecting job seekers with public and private vacancies.",
+        tag: "Active",
+        location: "Pan India",
+        action: "Browse Jobs"
+    },
+    {
+        id: 306,
+        title: "PM Kaushal Vikas Yojana (PMKVY 4.0)",
+        category: "Education",
+        description: "Skill certification courses and industry-aligned training for employment readiness.",
+        tag: "New Batch",
+        location: "Pan India",
+        action: "Register"
+    },
+    {
+        id: 307,
+        title: "Pradhan Mantri Mudra Yojana (PMMY)",
+        category: "Financial Schemes",
+        description: "Collateral-free business loans up to 10 Lakhs under Shishu, Kishore, and Tarun categories.",
+        tag: "Popular",
+        location: "Pan India",
+        action: "Check Eligibility"
+    },
+    {
+        id: 308,
+        title: "e-Shram National Database Card",
+        category: "Govt Cards",
+        description: "Official welfare identification card and accident insurance support for unorganized workers.",
+        tag: "Essential",
+        location: "Pan India",
+        action: "Get e-Shram"
+    }
+];
