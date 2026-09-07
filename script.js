@@ -1433,3 +1433,60 @@ const extraServicesData = [
         action: "Browse Jobs"
     }
 ];
+// --- Expanded Digital Hub Services Feed ---
+const massiveServicesPack = [
+    {
+        id: 105,
+        title: "Atal Pension Yojana (APY)",
+        category: "Financial Schemes",
+        description: "Guaranteed minimum pension scheme for workers in the unorganized sector managed by PFRDA.",
+        tag: "Popular",
+        location: "Pan India",
+        action: "Enroll Now"
+    },
+    {
+        id: 106,
+        title: "Ayushman Bharat Digital Health ID (ABHA)",
+        category: "Healthcare",
+        description: "Create your unique health ID card to digitally link and access all your medical records safely.",
+        tag: "Essential",
+        location: "Pan India",
+        action: "Create ABHA"
+    },
+    {
+        id: 107,
+        title: "Ujjwala Yojana 2.0 LPG Subsidy",
+        category: "Financial Schemes",
+        description: "Free cooking gas connections and financial support for women belonging to low-income households.",
+        tag: "Active",
+        location: "Pan India",
+        action: "Apply for LPG"
+    },
+    {
+        id: 108,
+        title: "UPSC Civil Services & Govt Exams Portal",
+        category: "Govt Jobs",
+        description: "Direct notifications, syllabus guidelines, and application links for central government recruitments.",
+        tag: "High Demand",
+        location: "Pan India",
+        action: "View Vacancies"
+    },
+    {
+        id: 109,
+        title: "e-Shram National Database for Unorganized Workers",
+        category: "Govt Cards",
+        description: "Official registration card providing accidental insurance coverage and welfare benefits for laborers.",
+        tag: "Verified",
+        location: "Pan India",
+        action: "Register/Update"
+    },
+    {
+        id: 110,
+        title: "PM Matru Vandana Yojana",
+        category: "Healthcare",
+        description: "Direct cash transfer maternity benefit scheme for pregnant and lactating mothers.",
+        tag: "Welfare",
+        location: "Pan India",
+        action: "Check Benefit"
+    }
+];
