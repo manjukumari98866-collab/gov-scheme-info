@@ -1490,3 +1490,150 @@ const massiveServicesPack = [
         action: "Check Benefit"
     }
 ];
+// --- Massive Complete Services Pack (Cards, Jobs, Education, Health, Schemes) ---
+const fullAppServicesList = [
+    {
+        id: 201,
+        title: "Pradhan Mantri Jan Dhan Yojana (PMJDY)",
+        category: "Financial Schemes",
+        description: "Zero balance savings account with built-in accident insurance and overdraft facility.",
+        tag: "Popular",
+        location: "Pan India",
+        action: "Open Account"
+    },
+    {
+        id: 202,
+        title: "Ayushman Vay Vandana Card 70+",
+        category: "Govt Cards",
+        description: "Healthcare coverage for senior citizens 70+ with hospitalization and OPD benefits.",
+        tag: "Updated",
+        location: "Pan India",
+        action: "Apply now"
+    },
+    {
+        id: 203,
+        title: "National Apprenticeship Promotion Scheme (NAPS)",
+        category: "Govt Jobs",
+        description: "Stipend support and practical industrial training opportunities for youth across India.",
+        tag: "Active",
+        location: "Pan India",
+        action: "Register"
+    },
+    {
+        id: 204,
+        title: "Ayushman Hospital Locator",
+        category: "Healthcare",
+        description: "Search nearby empanelled hospitals for free and subsidised treatment under Ayushman Bharat.",
+        tag: "Live",
+        location: "Pan India",
+        action: "Find Hospital"
+    },
+    {
+        id: 205,
+        title: "National Scholarship Portal (NSP)",
+        category: "Education",
+        description: "One-stop portal for central and state-level scholarship schemes for students.",
+        tag: "Trending",
+        location: "Pan India",
+        action: "Apply Online"
+    },
+    {
+        id: 206,
+        title: "Pradhan Mantri Mudra Yojana (PMMY)",
+        category: "Financial Schemes",
+        description: "Collateral-free loans up to 10 Lakhs for micro and small enterprise units.",
+        tag: "Popular",
+        location: "Pan India",
+        action: "Check Eligibility"
+    },
+    {
+        id: 207,
+        title: "Digital India Passport & ID Services",
+        category: "Govt Cards",
+        description: "Fast-track appointment booking and document verification support for official IDs.",
+        tag: "Verified",
+        location: "Pan India",
+        action: "Book Slot"
+    },
+    {
+        id: 208,
+        title: "PM Kaushal Vikas Yojana (PMKVY)",
+        category: "Education",
+        description: "Free industry-relevant skill training programs and certification for youth.",
+        tag: "New Batch",
+        location: "Pan India",
+        action: "Register Now"
+    },
+    {
+        id: 209,
+        title: "National Career Service (NCS) Portal",
+        category: "Govt Jobs",
+        description: "Find government and private sector job opportunities across various sectors.",
+        tag: "Active Jobs",
+        location: "Pan India",
+        action: "Browse Jobs"
+    },
+    {
+        id: 210,
+        title: "Pradhan Mantri Awas Yojana (PMAY)",
+        category: "Financial Schemes",
+        description: "Affordable housing assistance and interest subsidy for home buyers.",
+        tag: "Scheme Live",
+        location: "Pan India",
+        action: "Check Status"
+    },
+    {
+        id: 211,
+        title: "Atal Pension Yojana (APY)",
+        category: "Financial Schemes",
+        description: "Guaranteed minimum pension scheme for workers in the unorganized sector.",
+        tag: "Popular",
+        location: "Pan India",
+        action: "Enroll Now"
+    },
+    {
+        id: 212,
+        title: "Ayushman Bharat Digital Health ID (ABHA)",
+        category: "Healthcare",
+        description: "Create your unique health ID card to digitally link and access medical records.",
+        tag: "Essential",
+        location: "Pan India",
+        action: "Create ABHA"
+    },
+    {
+        id: 213,
+        title: "Ujjwala Yojana 2.0 LPG Subsidy",
+        category: "Financial Schemes",
+        description: "Free cooking gas connections and financial support for eligible households.",
+        tag: "Active",
+        location: "Pan India",
+        action: "Apply for LPG"
+    },
+    {
+        id: 214,
+        title: "UPSC Civil Services & Govt Exams Portal",
+        category: "Govt Jobs",
+        description: "Direct notifications, syllabus guidelines, and application links for recruitments.",
+        tag: "High Demand",
+        location: "Pan India",
+        action: "View Vacancies"
+    },
+    {
+        id: 215,
+        title: "e-Shram National Database for Workers",
+        category: "Govt Cards",
+        description: "Official registration card providing accidental insurance and welfare benefits.",
+        tag: "Verified",
+        location: "Pan India",
+        action: "Register/Update"
+    },
+    {
+        id: 216,
+        title: "PM Matru Vandana Yojana",
+        category: "Healthcare",
+        description: "Direct cash transfer maternity benefit scheme for pregnant and lactating mothers.",
+        tag: "Welfare",
+        location: "Pan India",
+        action: "Check Benefit"
+    }
+];
